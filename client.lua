@@ -13,7 +13,10 @@ local function pickupBike(bikeEntity)
     AttachEntityToEntity(bikeEntity, ped, fingerBone, 0.0, 0.24, 0.10, 340.0, 330.0, 330.0, true, true, false, true, 1, true)
     SetEntityCollision(bikeEntity, false, true)
 
-    lib.showTextUI('[BACKSPACE] - Pustit Kolo')
+    lib.showTextUI('[BACKSPACE] - Pustit Kolo', {
+        position = "right-center",
+        icon = 'bicycle',
+    })    
 
     local animDict = "anim@heists@box_carry@"
     hasBike = true
@@ -27,13 +30,13 @@ local function pickupBike(bikeEntity)
                 TaskPlayAnim(ped, animDict, "idle", 2.0, 2.0, -1, 51, 0, false, false, false)
             end
 
-            if IsControlJustPressed(0, 194) then -- X key
+            if IsControlJustPressed(0, 194) then
                 DetachEntity(bikeEntity, nil, nil)
                 SetVehicleOnGroundProperly(bikeEntity)
                 ClearPedTasksImmediately(ped)
                 SetEntityCollision(bikeEntity, true, true)
                 hasBike = false
-                lib.hideTextUI() -- odstranění TextUI
+                lib.hideTextUI()
                 RemoveAnimDict(animDict)
             end
             Wait(5)
@@ -59,3 +62,4 @@ RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
     hasBike = false
 end)
+
